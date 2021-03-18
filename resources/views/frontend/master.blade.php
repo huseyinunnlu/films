@@ -10,7 +10,7 @@
 	<!-- Loading third party fonts -->
 	<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
 	<link href="/assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<!-- Loading main css file -->
 	<link rel="stylesheet" href="/css/style.css">
 
@@ -36,16 +36,39 @@
 					<li class="menu-item"><a href="review.html"><i class="fa fa-film"></i> Movie reviews</a></li>
 					<li class="menu-item"><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
 					@if (Route::has('login'))
-						@auth
-						<li class="menu-item"><a href="{{ url('/dashboard') }}"><i class="fa fa-user"></i></a></li>
-						@else
-						<li class="menu-item"><a href="{{ route('login') }}">Log in</a></li>
-						@if (Route::has('register'))
-						<li class="menu-item"><a href="{{ route('register') }}">Register</a></li>
-						@endif
-						@endauth
-					
+					@auth
+					<li class="menu-item">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-user"></i>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							@if(auth()->user()->type=='admin')
+							<a class="dropdown-item" href="">Adminpanel</a>
+							@endif
+							<a class="dropdown-item" href="#">Dashboard</a>
+                            <div class="border-t border-gray-100"></div>
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                         onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-jet-dropdown-link>
+                            </form>
+						</div>
+					</li>
+					@else
+					<li class="menu-item"><a href="/login"><i class="fa fa-login"></i> Login</a></li>
+					@endauth
 					@endif
+					@auth
+					@else
+					@if(Route::has('register'))
+					<li class="menu-item"><a href="/login"><i class="fa fa-login"></i> Register</a></li>
+					@endif
+					@endauth
+					
 				</ul> <!-- .menu -->
 
 				<form action="#" class="search-form">
@@ -137,6 +160,8 @@
 <script src="/assets/js/jquery-1.11.1.min.js"></script>
 <script src="/assets/js/plugins.js"></script>
 <script src="/assets/js/app.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

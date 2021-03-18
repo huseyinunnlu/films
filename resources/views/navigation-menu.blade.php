@@ -93,6 +93,14 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Admin İşlemleri') }}
+                            </div>
+                            @if(auth()->user()->type=='admin')
+                            <x-jet-dropdown-link href="/adminpanel/">
+                                Adminpanel
+                            </x-jet-dropdown-link>
+                            @endif
+                            <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
 
