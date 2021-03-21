@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SettingsUpdateRequest extends FormRequest
+class SocialCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,22 +21,23 @@ class SettingsUpdateRequest extends FormRequest
      *
      * @return array
      */
+
     public function rules()
     {
+        $regex = '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/';
         return [
-            'logo'=>'image|nullable|max:1024|mimes:jpg,jpeg,png',
-            'logotext'=>'max:40|nullable',
-            'about'=>'min:40|required',
-            'contact'=>'min:20|required'
+            'title'=>'required|max:50',
+            'link'=>'required|regex:'.$regex,
+
         ];
     }
 
     public function attributes() {
         return [
-            'logo'=>'Logo image',
-            'logotext'=>'Company Name',
-            'about'=>'About Us',
-            'contact'=>'Contact Us'
+            'title'=>'Title',
+            'link'=>'URL',
+            'icon'=>'Icon',
+            'status'=>'Status',
         ];
     }
 }

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Settings;
 use App\Models\User;
+use App\Http\Requests\SettingsUpdateRequest;
+use App\Http\Requests\SocialCreateRequest;
+use App\Models\Social;
 
 class SettingsController extends Controller
 {
@@ -17,7 +20,8 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = settings::get();
-        return view('adminpanel.settings.settings',compact('settings'));
+        $socials = social::get();
+        return view('adminpanel.settings.settings',compact('settings','socials'));
     }
 
     /**
@@ -27,7 +31,7 @@ class SettingsController extends Controller
      */
     public function create()
     {
-        
+        return view('adminpanel.settings.social-create');
     }
 
     /**
@@ -36,9 +40,10 @@ class SettingsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SocialCreateRequest $request)
     {
-        //
+        social::create($request->post());
+        return redirect()->route('settings.index')->withSuccess('Social Media Link has added successfuly');
     }
 
     /**
@@ -49,7 +54,8 @@ class SettingsController extends Controller
      */
     public function show($id)
     {
-        //
+        social::find($id)->delete();
+        return redirect()->route('settings.index')->withSuccess('Social Media Link Deleted Successfuly');
     }
 
     /**
@@ -60,8 +66,15 @@ class SettingsController extends Controller
      */
     public function edit($id)
     {
-        $setting = settings::find($id)->first();
-        return view('adminpanel.settings.edit',compact('setting'));
+        $routeName = \Route::currentRouteName();     
+        if ($routeName=='settings.edit') {
+            $setting = settings::find($id) ?? abort(404 , 'Page Not Found');  
+            return view('adminpanel.settings.edit',compact('setting'));        
+        }else {
+            $social = social::find($id) ?? abort(404 , 'Social Media Link Not Found');
+            return view('adminpanel.settings.social-edit',compact('social'));
+        }        
+        
     }
 
     /**
@@ -71,10 +84,26 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SettingsUpdateRequest $request, $id)
     {
-        
+
+        if($request->hasFile('logo')){
+         $key = '';
+         $keys = array_merge(range('a', 'z'), range('A', 'Z'));
+         for($i=0; $i < 10; $i++) {
+            $key .= $keys[array_rand($keys)];
+            }
+
+        $filename = $key;
+        $filenameWithUpload = 'uploads/'.$filename;
+        $request->logo->move(public_path('uploads'),$filename);
+        $request->merge([
+            'logo'=>$filenameWithUpload
+        ]);
     }
+    settings::find($id)->first()->update($request->post());
+    return redirect()->route('settings.index')->withSuccess('Setting Updated Successfuly');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -84,6 +113,6 @@ class SettingsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

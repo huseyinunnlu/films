@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Settings extends Model
+class Social extends Model
 {
     use HasFactory;
-    protected $fillable=['logo','logotext','about','contact'];
+    protected $table = "social";
+    protected $fillable=['icon','title','link','status'];
 }

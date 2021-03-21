@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 
-	<title>Movie Review</title>
+	<title>Movie Reviews</title>
 
 	<!-- Loading third party fonts -->
 	<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
@@ -20,11 +20,12 @@
 	<![endif]-->
 	<header class="site-header">
 		<div class="container">
-			<a href="index.html" id="branding">
-				<img src="/assets/images/logo.png" alt="" class="logo">
+			<a href="/" id="branding">
+				@if($setting->logo)
+				<img src="{{asset($setting->logo)}}" style="width: 50px; position: relative; top: -5px" alt="" class="logo">
+				@endif
 				<div class="logo-copy">
-					<h1 class="site-title">Company Name</h1>
-					<small class="site-description">Tagline goes here</small>
+					<h1 class="site-title">{{$setting->logotext}}</h1>
 				</div>
 			</a> <!-- #branding -->
 
@@ -43,43 +44,43 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							@if(auth()->user()->type=='admin')
-							<a class="dropdown-item" href="">Adminpanel</a>
+							<a class="dropdown-item" href="/adminpanel">Adminpanel</a>
 							@endif
-							<a class="dropdown-item" href="#">Dashboard</a>
-                            <div class="border-t border-gray-100"></div>
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <x-jet-dropdown-link href="{{ route('logout') }}"
-                                         onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-jet-dropdown-link>
-                            </form>
-						</div>
-					</li>
-					@else
-					<li class="menu-item"><a href="/login"><i class="fa fa-login"></i> Login</a></li>
-					@endauth
-					@endif
-					@auth
-					@else
-					@if(Route::has('register'))
-					<li class="menu-item"><a href="/login"><i class="fa fa-login"></i> Register</a></li>
-					@endif
-					@endauth
-					
-				</ul> <!-- .menu -->
+							<a class="dropdown-item" href="/dashboard">Dashboard</a>
+							<div class="border-t border-gray-100"></div>
+							<!-- Authentication -->
+							<form method="POST" action="{{ route('logout') }}">
+								@csrf
+								<x-jet-dropdown-link href="{{ route('logout') }}"
+								onclick="event.preventDefault();
+								this.closest('form').submit();">
+								{{ __('Log Out') }}
+							</x-jet-dropdown-link>
+						</form>
+					</div>
+				</li>
+				@else
+				<li class="menu-item"><a href="/login"><i class="fa fa-login"></i> Login</a></li>
+				@endauth
+				@endif
+				@auth
+				@else
+				@if(Route::has('register'))
+				<li class="menu-item"><a href="/login"><i class="fa fa-login"></i> Register</a></li>
+				@endif
+				@endauth
 
-				<form action="#" class="search-form">
-					<input type="text" placeholder="Search...">
-					<button><i class="fa fa-search"></i></button>
-				</form>
-			</div> <!-- .main-navigation -->
+			</ul> <!-- .menu -->
 
-			<div class="mobile-navigation"></div>
-		</div>
-	</header>
+			<form action="#" class="search-form">
+				<input type="text" placeholder="Search...">
+				<button><i class="fa fa-search"></i></button>
+			</form>
+		</div> <!-- .main-navigation -->
+
+		<div class="mobile-navigation"></div>
+	</div>
+</header>
 </head>
 <body>
 	@yield('content')
@@ -88,42 +89,23 @@
 <footer class="site-footer">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-4">
 				<div class="widget">
 					<h3 class="widget-title">About Us</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia tempore vitae mollitia nesciunt saepe cupiditate</p>
+					<p>{{Str::limit($setting->about,100)}}</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="widget">
+					<h3 class="widget-title">Contact Us</h3>
+					<p>{{Str::limit($setting->contact,100)}}</p>
 				</div>
 			</div>
 			<div class="col-md-2">
 				<div class="widget">
-					<h3 class="widget-title">Recent Review</h3>
+					<h3 class="widget-title">Writers</h3>
 					<ul class="no-bullet">
-						<li><a href="#">Lorem ipsum dolor</a></li>
-						<li><a href="#">Sit amet consecture</a></li>
-						<li><a href="#">Dolorem respequem</a></li>
-						<li><a href="#">Invenore veritae</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="widget">
-					<h3 class="widget-title">Help Center</h3>
-					<ul class="no-bullet">
-						<li><a href="#">Lorem ipsum dolor</a></li>
-						<li><a href="#">Sit amet consecture</a></li>
-						<li><a href="#">Dolorem respequem</a></li>
-						<li><a href="#">Invenore veritae</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="widget">
-					<h3 class="widget-title">Join Us</h3>
-					<ul class="no-bullet">
-						<li><a href="#">Lorem ipsum dolor</a></li>
-						<li><a href="#">Sit amet consecture</a></li>
-						<li><a href="#">Dolorem respequem</a></li>
-						<li><a href="#">Invenore veritae</a></li>
+						<li><a href="#">Hüseyin Ünlü</a></li>
 					</ul>
 				</div>
 			</div>
@@ -131,26 +113,15 @@
 				<div class="widget">
 					<h3 class="widget-title">Social Media</h3>
 					<ul class="no-bullet">
-						<li><a href="#">Facebook</a></li>
-						<li><a href="#">Twitter</a></li>
-						<li><a href="#">Google+</a></li>
-						<li><a href="#">Pinterest</a></li>
+						@foreach($socials as $social)
+						<li><a style=" font-size: 110%;" href="http:\\{{$social->link}}"><i class="{{$social->icon}}" style="float: left; width: 20px;"></i> {{$social->title}}</a></li>
+						@endforeach
 					</ul>
 				</div>
 			</div>
-			<div class="col-md-2">
-				<div class="widget">
-					<h3 class="widget-title">Newsletter</h3>
-					<form action="#" class="subscribe-form">
-						<input type="text" placeholder="Email Address">
-					</form>
-				</div>
-			</div>
 		</div> <!-- .row -->
-
-		<div class="colophon">Copyright 2014 Company name, Designed by Themezy. All rights reserved</div>
+		<div class="colophon">{{$setting->copyright}}</div>
 	</div> <!-- .container -->
-
 </footer>
 </div>
 <!-- Default snippet for navigation -->

@@ -2,9 +2,9 @@
 	<x-slot name="header">Edit Settings</x-slot>
 	<div class="card">
 		<div class="card-body container">
-			<form method="POST" action="{{route('settings.update',$setting->id)}}" enctype="multipart/form-data">		
-				@csrf
+			<form method="post" action="{{route('settings.update',$setting->id)}}" enctype="multipart/form-data">		
 				@method('PUT')
+				@csrf
 				<div class="form-group">
 					<div class="row">
 						<label>Fotoğraf</label>
@@ -21,11 +21,11 @@
 						<div class="row mt-3">
 						<div class="col-md-6">
 							<label>Hakkımızda</label><br>
-							<textarea name="logotext" rows="8" style="width: 100%;">{{$setting->about}}</textarea>
+							<textarea name="about" rows="8" style="width: 100%;">{{$setting->about}}</textarea>
 						</div>
 						<div class="col-md-6">
 							<label>İletişim</label><br>
-							<textarea name="logotext" rows="8" style="width: 100%;">{{$setting->contact}}</textarea>
+							<textarea name="contact" rows="8" style="width: 100%;">{{$setting->contact}}</textarea>
 						</div>
 						</div>
 					

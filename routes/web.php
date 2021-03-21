@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\MainController;
 
-Route::get('/', function () {
-	return view('frontend.index');
-});
+Route::get('/',[MainController::class, 'index'])->whereNumber('id')->name('index');
 
 Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
 	return view('dashboard');
@@ -13,7 +12,12 @@ Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
 
 Route::group(['middleware' => ['auth','isAdmin'],'prefix' => 'adminpanel',], function() {
 	Route::get('/', function(){return view('adminpanel.index');});
+	/*Settings*/
 	Route::get('/settings',[SettingsController::class, 'index'])->whereNumber('id')->name('settings');
 	Route::get('/settings/edit/{id}',[SettingsController::class, 'edit'])->whereNumber('id')->name('settings.edit');
-	Route::resource('/settings', SettingsController::class);
+	Route::resource('settings',SettingsController::class);
+	/*Social*/
+	Route::resource('social', SettingsController::class);
+	
+	Route::get('/social/edit/{id}',[SettingsController::class, 'edit'])->whereNumber('id')->name('social.edit');
 });

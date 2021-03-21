@@ -5,7 +5,7 @@
 			<div class="col-md-6">
 				<div class="card">
 					<div class="card-body">
-						<a href="{{route('settings')}}"><h5 class="card-title"><i class="fa fa-gear"></i> Settings</h5></a>
+						<a href="{{route('settings.index')}}"><h5 class="card-title"><i class="fa fa-gear"></i> Settings</h5></a>
 					</div>
 				</div>
 			</div>
