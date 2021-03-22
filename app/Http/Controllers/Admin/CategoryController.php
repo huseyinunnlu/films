@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Settings;
-use App\Models\Social;
+use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
 
-
-class MainController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,8 @@ class MainController extends Controller
      */
     public function index()
     {
-        $setting = settings::first();
-        $socials = social::where('status','active')->get();
-        $categories = category::where('status','active')->get();
-        return view('frontend.index',compact('setting','socials','categories'));
+        $categories = category::get();
+        return view('adminpanel.categories.list',compact('categories'));
     }
 
     /**
@@ -30,7 +28,7 @@ class MainController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminpanel.categories.create');
     }
 
     /**
@@ -39,9 +37,10 @@ class MainController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryCreateRequest $request)
     {
-        //
+        category::create($request->post());
+        return redirect()->route('category.index')->withsuccess('Category Has Succesfully Added');
     }
 
     /**
@@ -63,7 +62,8 @@ class MainController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = category::find($id)->first();
+        return view('adminpanel.categories.edit',compact('category'));
     }
 
     /**
@@ -73,9 +73,10 @@ class MainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryUpdateRequest $request, $id)
     {
-        //
+        category::find($id)->first()->update($request->post());
+        return redirect()->route('category.index')->withsuccess('Category has Succesfully Updated');
     }
 
     /**
@@ -86,6 +87,7 @@ class MainController extends Controller
      */
     public function destroy($id)
     {
-        //
+        category::find($id)->delete($id);
+        return redirect()->route('category.index')->withsuccess('Category has Succesfully Deleted');
     }
 }

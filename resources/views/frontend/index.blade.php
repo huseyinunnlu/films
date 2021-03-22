@@ -123,4 +123,5 @@
 			</div>
 		</div> <!-- .container -->
 	</main>
+</div>
 @endsection
