@@ -1,29 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Models\Settings;
-use App\Models\Social;
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Http\Requests\SendMessageRequest;
+use Illuminate\Http\Request;
 
-
-
-class MainController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $setting = settings::first();
-        $socials = social::where('status','active')->get();
-        $categories = category::where('status','active')->get();
-        return view('frontend.index',compact('setting','socials','categories'));
+        $messages = message::paginate(10);
+        $message = message::find($request->id);
+        return view('adminpanel.messages.list',compact('messages','message'));
     }
 
     /**
@@ -42,9 +37,10 @@ class MainController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SendMessageRequest $request)
     {
-        //
+        message::create($request->post());
+        return redirect()->back()->withsuccess('Your Message has successfuly sent');
     }
 
     /**
@@ -89,19 +85,7 @@ class MainController extends Controller
      */
     public function destroy($id)
     {
-        //
+        message::find($id)->delete();
+        return redirect()->back();
     }
-
-    public function about() {
-        $setting = settings::first();
-        $socials = social::where('status','active')->get();
-        $categories = category::where('status','active')->get();
-        return view('frontend.about',compact('setting','socials','categories'));
-    }
-    public function contact() {
-        $setting = settings::first();
-        $socials = social::where('status','active')->get();
-        $categories = category::where('status','active')->get();
-        return view('frontend.contact',compact('setting','socials','categories'));
-    }       
 }

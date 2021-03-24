@@ -34,8 +34,8 @@
 				<ul class="menu">
 					<li class="menu-item current-menu-item"><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
 					<li class="menu-item"><a href="review.html"><i class="fa fa-film"></i> Movie reviews</a></li>
-					<li class="menu-item"><a href="about.html"><i class="fa fa-address-card"></i> About</a></li>
-					<li class="menu-item"><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+					<li class="menu-item"><a href="{{route('about')}}"><i class="fa fa-address-card"></i> About</a></li>
+					<li class="menu-item"><a href="{{route('contact')}}"><i class="fa fa-envelope"></i> Contact</a></li>
 					@if (Route::has('login'))
 					@auth
 					<li class="menu-item">

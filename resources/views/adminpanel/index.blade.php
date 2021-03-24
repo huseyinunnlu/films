@@ -10,6 +10,9 @@
 					<div class="card-body">
 						<a href="{{route('category.index')}}"><h5 class="card-title"><i class="fa fa-plus"></i> Categories</h5></a>
 					</div>
+					<div class="card-body">
+						<a href="{{route('message.index')}}"><h5 class="card-title"><i class="fa fa-envelope"></i> Messages</h5></a>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
