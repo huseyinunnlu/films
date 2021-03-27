@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\MainController;
 
 Route::get('/', [MainController::class, 'index'])->whereNumber('id')->name('index');
@@ -30,4 +32,8 @@ Route::group(['middleware' => ['auth','isAdmin'],'prefix' => 'adminpanel',], fun
 	/*Message*/
 	Route::resource('message', MessageController::class);
 	Route::get('message/{id}/destroy', [MessageController::class, 'destroy'])->whereNumber('id')->name('message.destroy');
+	/*Gallery*/
+	Route::resource('gallery', GalleriesController::class);
+	/*Posts*/
+	Route::resource('post', PostsController::class);
 });

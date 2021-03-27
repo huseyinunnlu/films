@@ -7,7 +7,7 @@
 				<div class="row">
 					<div class="col-md-8">
 						<h2 style="text-align: center;">Contact Us</h2>
-						<p>{{$setting->contact}}</p>
+						<p>{!!$setting->contact!!}</p>
 					</div>
 					<div class="col-md-4">
 						<h2 style="text-align: center;">Send us a message</h2>
@@ -46,7 +46,7 @@
 							@endif
 							<div class="form-group">
 								<label for="exampleInputEmail1">Message</label> - <small>Please Don't be rude !</small>
-								<textarea class="form-control" placeholder="Enter Message" name="message" rows="5">{{old('message')}}</textarea>
+								<textarea class="form-control" id="message" name="message">{!!old('message')!!}</textarea>
 							</div>
 							<div class="form-group">
 								<button class="btn btn-primary"> Send </button>
@@ -58,4 +58,7 @@
 		</div> <!-- .container -->
 	</main>
 </div>
+<script type="text/javascript">
+        CKEDITOR.replace( 'message' );
+</script>
 @endsection

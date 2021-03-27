@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<!-- Loading main css file -->
 	<link rel="stylesheet" href="/css/style.css">
+	<script src="/ckeditor/ckeditor.js"></script>
 
 		<!--[if lt IE 9]>
 		<script src="js/ie-support/html5.js"></script>

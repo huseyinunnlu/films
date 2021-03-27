@@ -18,8 +18,8 @@
 					<tr>
 						<th scope="row" style="width: 90px;">{{$loop->iteration}} - <a href="{{route('settings.edit',$setting->id)}}">Edit</a></th>
 						<td><a href="{{asset($setting->logo)}}" target="_blank"><img src="{{asset($setting->logo)}}" style="width: 100px; display: block;"></a>/{{$setting->logotext}}</td>
-						<td>{{Str::limit($setting->about,100)}}</td>
-						<td>{{Str::limit($setting->contact,100)}}</td>
+						<td>{!!Str::limit($setting->about,100)!!}</td>
+						<td>{!!Str::limit($setting->contact,100)!!}</td>
 						<td>{{$setting->finished_at ? $setting->finished_at->diffForHumans() : '-'}}</td>
 						<td>{{$setting->updated_at ? $setting->updated_at->diffForHumans() : '-'}}</td>
 					</tr>

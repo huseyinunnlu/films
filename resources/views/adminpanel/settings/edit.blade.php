@@ -7,7 +7,7 @@
 				@csrf
 				<div class="form-group">
 					<div class="row">
-						<label>Fotoğraf</label>
+						<label>Photo</label>
 						<div class="col-md-3">	
 							@if($setting->logo)
 							<img src="{{asset($setting->logo)}}" style="width:150px;">
@@ -21,11 +21,11 @@
 						<div class="row mt-3">
 						<div class="col-md-6">
 							<label>Hakkımızda</label><br>
-							<textarea name="about" rows="8" style="width: 100%;">{{$setting->about}}</textarea>
+							<textarea class="form-control" id="about" name="about">{{$setting->about}}</textarea>
 						</div>
 						<div class="col-md-6">
 							<label>İletişim</label><br>
-							<textarea name="contact" rows="8" style="width: 100%;">{{$setting->contact}}</textarea>
+							<textarea class="form-control" id="contact" name="contact">{{$setting->contact}}</textarea>
 						</div>
 						</div>
 					
@@ -37,4 +37,8 @@
 			</form>
 		</div>
 	</div>
+    <script>
+        CKEDITOR.replace( 'about' );
+        CKEDITOR.replace( 'contact' );
+    </script>
 </x-app-layout>

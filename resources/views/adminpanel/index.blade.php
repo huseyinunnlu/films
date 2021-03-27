@@ -13,6 +13,9 @@
 					<div class="card-body">
 						<a href="{{route('message.index')}}"><h5 class="card-title"><i class="fa fa-envelope"></i> Messages</h5></a>
 					</div>
+					<div class="card-body">
+						<a href="{{route('post.index')}}"><h5 class="card-title"><i class="fa fa-envelope"></i> Posts</h5></a>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
