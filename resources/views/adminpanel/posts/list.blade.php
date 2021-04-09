@@ -6,10 +6,10 @@
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Title</th>
+						<th style="width: 15px;" scope="col">Title</th>
 						<th scope="col">Slug</th>
 						<th scope="col">Status</th>
-						<th scope="col">Type</th>
+						<th scope="col">Categories</th>
 						<th scope="col">Rate</th>
 						<th scope="col">Release Date</th>
 						<th scope="col">Create Date</th>
@@ -18,33 +18,41 @@
 					</tr>
 				</thead>
 				<tbody>
-
+					@foreach($posts as $post)
 					<tr>
-						<th scope="row">1</th>
+						<th scope="row">{{$loop->iteration}}</th>
 						<td>
-							<img src="#"><br>
-							<a href="#">Teminator 1</a>
+							<a href="{{asset($post->banner)}}" target="_blank"><img src="{{asset($post->banner)}}"></a><br>
+							<a href="{{route('post.edit',$post->id)}}">{{$post->title}}</a>
 						</td>
-						<td>terminator-1</td>
+						<td>{{$post->slug}}</td>
 						<td>
+							@if($post->category_count==0)
+							<span class="badge badge-warning">No Category <br>(Inactive)</span>
+							@elseif($post->status=='active')
 							<span class="badge badge-success">Active</span>
+							@else
 							<span class="badge badge-danger">Inactive</span>
+							@endif
 						</td>
-						<td>Action</td>
-						<td>**** (4.5)</td>
-						<td>25.03.2021</td>
-						<td>25.03.2021</td>
-						<td>25.03.2021</td>
 						<td>
-							<a href="#" class="btn btn-primary btn-sm"><i class="fa fa-user"></i></a>
-							<a href="#" class="btn btn-info btn-sm"><i class="fa fa-camera"></i></a>
+							<a href="{{route('post.categories',$post->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-gear"></i> Categories</a>
+						</td>
+						<td>**** (4.5)</td>
+						<td>{{$post->release_date}}</td>
+						<td>{{$post->created_at->diffForHumans()}}</td>
+						<td>{{$post->updated_at->diffForHumans()}}</td>
+						<td>
+							<a href="{{route('post.actors',$post->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-user"></i></a>
+							<a href="{{route('post.gallery',$post->id)}}" class="btn btn-info btn-sm"><i class="fa fa-camera"></i></a>
 							<a href="#" class="btn btn-success btn-sm"><i class="fa fa-envelope"></i></a>
-							<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+							<a href="{{route('post.destroy',$post->id)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
 						</td>
 					</tr>
-					
+					@endforeach
 				</tbody>
 			</table>
+			{{$posts->links()}}
 		</div>
 	</div>
 </x-app-layout>

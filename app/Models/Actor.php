@@ -6,19 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Category extends Model
+
+class Actor extends Model
 {
-	use Sluggable;
     use HasFactory;
-    protected $table = 'categories';
-    protected $fillable = ['title','slug','status'];
+    use Sluggable;
+    protected $table = 'actors';
+    protected $fillable = ['image','name_surname','slug','birthdate'];
     public function sluggable(): array
     {
         return [
             'slug' => [
                 'onUpdate'=>true,
-                'source' => 'title'
+                'source' => 'name_surname'
             ]
         ];
     }
+
+
+   
 }

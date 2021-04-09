@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Settings;
 use App\Models\Social;
 use App\Models\Category;
+use App\Models\PostCategory;
 use App\Models\Message;
+use App\Models\Post;
 use App\Http\Requests\SendMessageRequest;
-
+use DB;
 
 
 class MainController extends Controller
@@ -20,10 +22,15 @@ class MainController extends Controller
      */
     public function index()
     {
+        $postsindex = DB::table('posts')->
+        join('post_categories','post_categories.post_id','posts.id')->
+        where('post_categories.cat_id','8')->get();
+        $postsmost = Post::where('status','active')->orderBy('views','DESC')->get();
+        $postslast = Post::where('status','active')->orderBy('id','DESC')->get();
         $setting = settings::first();
         $socials = social::where('status','active')->get();
         $categories = category::where('status','active')->get();
-        return view('frontend.index',compact('setting','socials','categories'));
+        return view('frontend.index',compact('setting','socials','categories','postsindex','postsmost','postslast'));
     }
 
     /**
@@ -103,5 +110,7 @@ class MainController extends Controller
         $socials = social::where('status','active')->get();
         $categories = category::where('status','active')->get();
         return view('frontend.contact',compact('setting','socials','categories'));
-    }       
+    }  
+
+      
 }

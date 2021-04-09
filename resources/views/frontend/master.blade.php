@@ -34,7 +34,7 @@
 				<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 				<ul class="menu">
 					<li class="menu-item current-menu-item"><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
-					<li class="menu-item"><a href="review.html"><i class="fa fa-film"></i> Movie reviews</a></li>
+					<li class="menu-item"><a href="{{route('movies')}}"><i class="fa fa-film"></i> Movie reviews</a></li>
 					<li class="menu-item"><a href="{{route('about')}}"><i class="fa fa-address-card"></i> About</a></li>
 					<li class="menu-item"><a href="{{route('contact')}}"><i class="fa fa-envelope"></i> Contact</a></li>
 					@if (Route::has('login'))
@@ -67,7 +67,7 @@
 				@auth
 				@else
 				@if(Route::has('register'))
-				<li class="menu-item"><a href="/login"><i class="fa fa-login"></i> Register</a></li>
+				<li class="menu-item"><a href="/register"><i class="fa fa-login"></i> Register</a></li>
 				@endif
 				@endauth
 
@@ -93,13 +93,13 @@
 			<div class="col-md-4">
 				<div class="widget">
 					<h3 class="widget-title">About Us</h3>
-					<p>{{Str::limit($setting->about,100)}}</p>
+					<p>{!!Str::limit($setting->about,100)!!}</p>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="widget">
 					<h3 class="widget-title">Contact Us</h3>
-					<p>{{Str::limit($setting->contact,100)}}</p>
+					<p>{!!Str::limit($setting->contact,200)!!}</p>
 				</div>
 			</div>
 			<div class="col-md-2">

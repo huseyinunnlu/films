@@ -1,5 +1,5 @@
 <x-app-layout>
-	<x-slot name="header">Add Category - <a href="{{route('post.index')}}" class="btn btn-info btn-sm">Go Back</a></x-slot>
+	<x-slot name="header">Add Post - <a href="{{route('post.index')}}" class="btn btn-info btn-sm">Go Back</a></x-slot>
 	<div class="card">
 		<div class="card-body container">
 			<form method="post" action="{{route('post.store')}}" enctype="multipart/form-data">		
@@ -29,23 +29,6 @@
 						<div class="form-group">
 							<label>Description</label>
 							<textarea id="desc" name="desc"></textarea>
-						</div>
-					</div>
-					<div class="col-md-3">
-					<div class="form-group">
-							<label>Category</label>
-							<div class="card">
-								<div class="card-body">
-									@foreach($categories as $cat)
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="type" id="exampleRadios1" value="{{$cat->id}}" checked>
-										<label class="form-check-label" for="exampleRadios1">
-											{{$cat->title}}
-										</label>
-									</div>
-									@endforeach
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

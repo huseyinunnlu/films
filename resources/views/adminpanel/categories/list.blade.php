@@ -1,6 +1,6 @@
 <x-app-layout>
 	<div class="container">
-		<h3 class="m-3">Categoies - <a href="{{route('category.create')}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add Category</a></h3>
+		<h3 class="m-3">Categoies - <a href="{{route('category.create')}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add Category</a> <a href="{{url('adminpanel')}}" class="btn btn-primary btn-sm">Go Back</a></h3>
 		<div class="row">
 			<table class="table table-bordered">
 				<thead>

@@ -19,7 +19,6 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->string('banner');
             $table->longtext('desc');
-            $table->string('type');
             $table->string('status');
             $table->timestamp('release_date')->nullable();
             $table->string('director');
